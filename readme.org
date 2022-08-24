@@ -13,4 +13,21 @@ cabal build
 ghc --make Main.hs
   #+end_src
 
-  #+RESULTS:
+- this fixes ~ghc~ build
+
+  #+begin_src sh
+ghc --make -XHaskell2010 Main.hs
+  #+end_src
+
+  #+begin_quote
+GHC2021 is used by GHC if neither Haskell98 nor Haskell2010 is turned on explicitly.
+  #+end_quote
+
+  + ~GHC2021~ enable ~StandaloneKindSignatures~ hence it supposes work.
+  + ~Haskell2010~ has ~CUSKs~, which is legacy extension that fixes user specified kind signature.
+  + ~GHC2021~ is new feature since [[https://www.haskell.org/ghc/blog/20211029-ghc-9.2.1-released.html][9.2.1]]
+  + Follow up this problem [[https://gitlab.haskell.org/ghc/ghc/-/issues/22104][here]].
+
+- reference
+
+  + [[https://downloads.haskell.org/ghc/9.2.2/docs/html/users_guide/exts/control.html#controlling-extensions][GHC guide - control extensions]]
