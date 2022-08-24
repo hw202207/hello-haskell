@@ -1,0 +1,16 @@
+#+title: Readme
+
+
+- this works
+
+  #+begin_src sh
+cabal build
+  #+end_src
+
+- this fails
+
+  #+begin_src sh
+ghc --make Main.hs
+  #+end_src
+
+  #+RESULTS:
