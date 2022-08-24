@@ -3,19 +3,19 @@
 
 * Unable to build with ~GHC~
 
-- this works
+- This works
 
   #+begin_src sh
 cabal build
   #+end_src
 
-- this fails
+- This fails
 
   #+begin_src sh
 ghc --make Main.hs
   #+end_src
 
-- this fixes ~ghc~ build
+- This fixes ~ghc~ build
 
   #+begin_src sh
 ghc --make -XHaskell2010 Main.hs
@@ -30,6 +30,8 @@ GHC2021 is used by GHC if neither Haskell98 nor Haskell2010 is turned on explici
   + ~GHC2021~ is new feature since [[https://www.haskell.org/ghc/blog/20211029-ghc-9.2.1-released.html][9.2.1]]
   + Follow up this problem [[https://gitlab.haskell.org/ghc/ghc/-/issues/22104][here]].
 
-- reference
-
+- Reference
   + [[https://downloads.haskell.org/ghc/9.2.2/docs/html/users_guide/exts/control.html#controlling-extensions][GHC guide - control extensions]]
+
+- Tips
+  + ~cabal build --verbose~ to see what being passed to GHC
