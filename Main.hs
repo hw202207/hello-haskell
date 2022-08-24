@@ -6,6 +6,18 @@ module Main where
 
 newtype UnescapingChar = UnescapingChar {unescapingChar :: Char}
 
+-- | how to interpret @(a :: k) :: k@?
+-- @
+-- ( ToUnescapingTF (a :: k) ) :: k
+-- @
+-- Why need this? I think the reason being is because
+-- @a@ can be both 'Type' and @'Type' -> 'Type'@
+-- due to the following implementation
+-- @ToUnescapingTF t@
+-- @ToUnescapingTF b@
+-- where @t@ has kind @Type -> Type@
+-- and @b@ has kind @Type@
+--
 type family ToUnescapingTF (a :: k) :: k where
   ToUnescapingTF Char = UnescapingChar
   -- cast to @:: k@ seems not required
