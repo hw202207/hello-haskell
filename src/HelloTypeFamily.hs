@@ -2,7 +2,7 @@
 {-# LANGUAGE PolyKinds #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE NoStarIsType #-}
-module Main where
+module HelloTypeFamily where
 
 newtype UnescapingChar = UnescapingChar {unescapingChar :: Char}
 
