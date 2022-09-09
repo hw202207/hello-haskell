@@ -3,7 +3,9 @@
 
 module HelloEnum where
 
+import Data.List
 import Data.Set qualified as Set
+import Test.QuickCheck
 
 data Foo = A | B | C | D
   deriving stock (Bounded, Enum, Eq, Ord, Show)
@@ -21,11 +23,27 @@ t1 =
     Bar D "dd"
   ]
 
-hasAllFoo :: [Foo] -> Bool
-hasAllFoo fs = Set.fromList fs == Set.fromList [minBound..maxBound]
+instance Arbitrary Foo where
+  arbitrary = elements [minBound .. maxBound]
+
+hasAllFoo1, hasAllFoo2, hasAllFoo3 :: [Foo] -> Bool
+hasAllFoo1 = null . ([minBound .. maxBound] \\)
+hasAllFoo2 xs = xs /= [] && (sort $ [minBound .. maxBound] `intersect` xs) == [minBound .. maxBound]
+hasAllFoo3 = (== [minBound .. maxBound]) . Set.toList . Set.fromList
+
+prop_hasAllFoo1 :: [Foo] -> Bool
+prop_hasAllFoo1 xs =
+  hasAllFoo1 xs == hasAllFoo2 xs
+
+prop_hasAllFoo2 :: [Foo] -> Bool
+prop_hasAllFoo2 xs =
+  hasAllFoo2 xs == hasAllFoo3 xs
+
+prop_hasAllFoo3 :: [Foo] -> Bool
+prop_hasAllFoo3 xs =
+  hasAllFoo1 xs == hasAllFoo3 xs
 
 main = do
-  print (hasAllFoo $ map foo t1)
-  print (hasAllFoo $ map foo $ take 4 t1)
-  print (hasAllFoo $ map foo $ take 3 t1)
-  print (hasAllFoo $ map foo $ take 2 t1)
+  (quickCheck . withMaxSuccess 1000) prop_hasAllFoo1
+  (quickCheck . withMaxSuccess 1000) prop_hasAllFoo2
+  (quickCheck . withMaxSuccess 1000) prop_hasAllFoo3
