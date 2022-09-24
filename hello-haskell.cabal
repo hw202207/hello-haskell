@@ -32,5 +32,14 @@ executable hello-haskell
     build-depends:    QuickCheck >= 2.14.2
                     , base >=4.16.1.0
                     , containers
+                    , bytestring
+                    , mtl
+                    , text
+                    -- , base64-bytestring
+                    , base64
+                    , memory
+                    , hedgehog ^>= 1.2
+                    , cryptonite ^>= 0.30
+
     hs-source-dirs: src
     default-language: Haskell2010

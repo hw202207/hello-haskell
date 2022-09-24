@@ -25,13 +25,15 @@ okta = IDP
 -- idps = [auth0, okta]
 
 main :: IO ()
-main = putStrLn "Hello, Haskell!"
+main = do
+  putStrLn "Hello, Haskell!"
+  print (toGrantParam2 (undefined :: AuthRequest 'Password))
 
 -- data Foo = forall n. KnownSymbol n => Foo (Int, n)
 symbolVal2 :: forall n proxy. KnownSymbol n => IDP n -> String
 symbolVal2 = undefined
 
-data GT = Code | Password | Client
+data GT = Code | Password | Client | Foo
 
 class ToGrantParam (a :: GT) where
   toGrantParam :: String
@@ -41,6 +43,12 @@ instance ToGrantParam 'Code where
 
 instance ToGrantParam 'Password where
   toGrantParam = "password"
+
+class  ToGrantParam2 a where
+  toGrantParam2 :: a -> String
+
+instance (ToGrantParam a) => ToGrantParam2 (AuthRequest a) where
+  toGrantParam2 _ = toGrantParam @a
 
 data family AuthRequest (a :: GT)
 
@@ -52,6 +60,9 @@ data instance AuthRequest 'Code = CodeAuthRequest
 data instance AuthRequest 'Password = PasswordAuthRequest
   { appName :: String
   }
+
+nonsense :: AuthRequest a -> String
+nonsense something = "et"
 
 requestGrantParam :: forall a. ToGrantParam a => AuthRequest a -> String
 requestGrantParam _ = toGrantParam @a
@@ -75,3 +86,4 @@ passwordReq =
   PasswordAuthRequest
     { appName = "demo app"
     }
+
