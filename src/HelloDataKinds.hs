@@ -1,5 +1,6 @@
 {-# LANGUAGE AllowAmbiguousTypes #-}
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE KindSignatures #-}
 {-# LANGUAGE RankNTypes #-}
@@ -11,6 +12,7 @@
 module HelloDataKinds where
 
 import Data.Proxy
+import GHC.Generics
 import GHC.TypeLits
 
 data IDP (n :: Symbol) = IDP
@@ -44,18 +46,22 @@ instance ToGrantParam 'Code where
 instance ToGrantParam 'Password where
   toGrantParam = "password"
 
-class  ToGrantParam2 a where
+class ToGrantParam2 a where
   toGrantParam2 :: a -> String
 
 instance (ToGrantParam a) => ToGrantParam2 (AuthRequest a) where
   toGrantParam2 _ = toGrantParam @a
 
+toGrantParam3 :: forall a req. ToGrantParam a => req a -> String
+toGrantParam3 _ = toGrantParam @a
+
 data family AuthRequest (a :: GT)
 
 data instance AuthRequest 'Code = CodeAuthRequest
   { appName :: String,
-    redirectUri :: String
+    redirectUri :: RedirectUri
   }
+  deriving (Generic)
 
 data instance AuthRequest 'Password = PasswordAuthRequest
   { appName :: String
@@ -67,17 +73,33 @@ nonsense something = "et"
 requestGrantParam :: forall a. ToGrantParam a => AuthRequest a -> String
 requestGrantParam _ = toGrantParam @a
 
+newtype RedirectUri = RedirectUri {unRedirectUri :: String}
+  deriving (Show)
+
 codeReq :: AuthRequest 'Code
 codeReq =
   CodeAuthRequest
     { appName = "demo app",
-      redirectUri = "http://localhost"
+      redirectUri = RedirectUri "http://localhost"
     }
+
+-- x =
+--   M1
+--     { unM1 =
+--         M1
+--           { unM1 =
+--               M1 { unM1 = K1 {unK1 = "demo app"}}
+--               :*: M1 { unM1 = K1
+--                         { unK1 = RedirectUri {unRedirectUri = "http://localhost"}
+--                         }
+--                      }
+--           }
+--     }
 
 mkCodeUri :: AuthRequest 'Code -> [(String, String)]
 mkCodeUri req@CodeAuthRequest {..} =
   [ ("name", appName),
-    ("redirect_uri", redirectUri),
+    ("redirect_uri", unRedirectUri redirectUri),
     ("grant_type", (requestGrantParam req))
   ]
 
@@ -86,4 +108,3 @@ passwordReq =
   PasswordAuthRequest
     { appName = "demo app"
     }
-
