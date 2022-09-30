@@ -39,7 +39,7 @@ main = do
   str2 <- genCodeVerifier2
   let hashed2 = hashSHA256 str2
   let encoded2 = B64.encodeBase64Unpadded' . BS.pack . ByteArray.unpack . hashSHA256 $ str2
-  print (str2)
+  print str2
   print hashed2
   print encoded2
 

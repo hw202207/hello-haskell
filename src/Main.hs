@@ -15,5 +15,5 @@ import HelloCryp qualified as  HelloCryp
 
 main :: IO ()
 main = do
-  putStrLn "Hello, Haskell!"
+  ( putStrLn ) "Hello, Haskell!"
   HelloCryp.main
