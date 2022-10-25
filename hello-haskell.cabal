@@ -29,6 +29,8 @@ executable hello-haskell
        HelloTypeFamily
        HelloEnum
        HelloDataKinds
+       HelloMaybeT
+       HelloAeson
        HelloCryp
 
     -- LANGUAGE extensions used by modules in this package.
@@ -38,7 +40,9 @@ executable hello-haskell
                     , containers
                     , bytestring
                     , mtl
+                    , aeson
                     , text
+                    , transformers
                     -- , base64-bytestring
                     , base64
                     , memory
