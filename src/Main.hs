@@ -12,6 +12,7 @@ import HelloEnum
 import HelloTypeFamily
 import HelloMaybeT
 import HelloAeson
+import HelloStringVariants
 
 -- f :: Show a => Int -> a
 -- f _ = "test"

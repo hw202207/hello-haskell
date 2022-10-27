@@ -40,9 +40,11 @@ executable hello-haskell
                     , containers
                     , bytestring
                     , mtl
+                    , string-variants
                     , aeson
                     , text
                     , transformers
+                    , pretty-simple
                     -- , base64-bytestring
                     , base64
                     , memory
