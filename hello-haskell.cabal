@@ -49,6 +49,7 @@ executable hello-haskell
                     , time
                     , text
                     , transformers
+                    , string-variants
                     , pretty-simple
                     , scientific
                     -- , base64-bytestring
