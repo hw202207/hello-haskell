@@ -26,12 +26,15 @@ executable hello-haskell
 
     -- Modules included in this executable, other than Main.
     other-modules:
-       HelloTypeFamily
-       HelloEnum
-       HelloDataKinds
-       HelloMaybeT
        HelloAeson
        HelloCryp
+       HelloDataKinds
+       HelloEither
+       HelloEnum
+       HelloMaybeT
+       HelloStringVariants
+       HelloTime
+       HelloTypeFamily
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
@@ -42,6 +45,7 @@ executable hello-haskell
                     , mtl
                     , string-variants
                     , aeson
+                    , time
                     , text
                     , transformers
                     , pretty-simple

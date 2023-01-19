@@ -65,5 +65,5 @@ case2 =
     ]
 
 main = do
-    mapM print case1
+    mapM_ print case1
     mapM print case2

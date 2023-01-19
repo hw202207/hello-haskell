@@ -6,13 +6,15 @@
 
 module Main where
 
-import HelloCryp qualified as HelloCryp
+import HelloCryp qualified
 import HelloDataKinds
 import HelloEnum
 import HelloTypeFamily
 import HelloMaybeT
 import HelloAeson
 import HelloStringVariants
+import HelloTime
+import HelloEither
 
 -- f :: Show a => Int -> a
 -- f _ = "test"
