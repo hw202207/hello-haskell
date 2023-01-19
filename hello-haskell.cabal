@@ -34,6 +34,7 @@ executable hello-haskell
        HelloMaybeT
        HelloStringVariants
        HelloTime
+       HelloScientific
        HelloTypeFamily
 
     -- LANGUAGE extensions used by modules in this package.
@@ -49,6 +50,7 @@ executable hello-haskell
                     , text
                     , transformers
                     , pretty-simple
+                    , scientific
                     -- , base64-bytestring
                     , base64
                     , memory
