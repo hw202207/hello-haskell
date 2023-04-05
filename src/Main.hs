@@ -1,5 +1,5 @@
-{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ImportQualifiedPost #-}
+{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PolyKinds #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE UndecidableInstances #-}
@@ -7,24 +7,29 @@
 
 module Main where
 
-import HelloCryp qualified
-import HelloScientific qualified
-import HelloDataKinds qualified
-import HelloEnum qualified
-import HelloTypeFamily qualified
-import HelloMaybeT qualified
+import Data.Text qualified as T
 import HelloAeson qualified
+import HelloCryp qualified
+import HelloDataKinds qualified
+import HelloEither qualified
+import HelloEnum qualified
+import HelloMaybeT qualified
+import HelloScientific qualified
 import HelloStringVariants qualified
 import HelloTime qualified
-import HelloEither qualified
-import Data.Text qualified as T
+import HelloTypeFamily qualified
+import HelloTempFile qualified
 
 -- f :: Show a => Int -> a
 -- f _ = "test"
 
+data Foo = Foo
+  { a1 :: String
+  , a2 :: Int
+  }
+
 main :: IO ()
 main = do
-  HelloScientific.main
   print $ T.splitOn "-" ""
   print $ T.splitOn "-" "a"
   print $ T.splitOn "-" "a-b"
