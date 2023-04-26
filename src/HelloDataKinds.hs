@@ -2,7 +2,6 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DuplicateRecordFields #-}
-{-# LANGUAGE KindSignatures #-}
 {-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE ScopedTypeVariables #-}
@@ -63,7 +62,7 @@ data instance AuthRequest 'Code = CodeAuthRequest
   }
   deriving (Generic)
 
-data instance AuthRequest 'Password = PasswordAuthRequest
+newtype instance AuthRequest 'Password = PasswordAuthRequest
   { appName :: String
   }
 
@@ -100,7 +99,7 @@ mkCodeUri :: AuthRequest 'Code -> [(String, String)]
 mkCodeUri req@CodeAuthRequest {..} =
   [ ("name", appName),
     ("redirect_uri", unRedirectUri redirectUri),
-    ("grant_type", (requestGrantParam req))
+    ("grant_type", requestGrantParam req)
   ]
 
 passwordReq :: AuthRequest 'Password

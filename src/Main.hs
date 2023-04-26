@@ -19,6 +19,7 @@ import HelloStringVariants qualified
 import HelloTime qualified
 import HelloTypeFamily qualified
 import HelloTempFile qualified
+import HelloFactors qualified
 
 -- f :: Show a => Int -> a
 -- f _ = "test"
@@ -29,7 +30,9 @@ data Foo = Foo
   }
 
 main :: IO ()
-main = do
+main = HelloFactors.main
+
+testSplit = do
   print $ T.splitOn "-" ""
   print $ T.splitOn "-" "a"
   print $ T.splitOn "-" "a-b"

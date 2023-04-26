@@ -1,5 +1,6 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE ImportQualifiedPost #-}
+{-# LANGUAGE InstanceSigs #-}
 
 module HelloEnum where
 
@@ -11,24 +12,25 @@ data Foo = A | B | C | D
   deriving stock (Bounded, Enum, Eq, Ord, Show)
 
 data Bar = Bar
-  { foo :: Foo,
-    name :: String
+  { foo :: Foo
+  , name :: String
   }
 
 t1 :: [Bar]
 t1 =
-  [ Bar A "aa",
-    Bar B "bb",
-    Bar C "cc",
-    Bar D "dd"
+  [ Bar A "aa"
+  , Bar B "bb"
+  , Bar C "cc"
+  , Bar D "dd"
   ]
 
 instance Arbitrary Foo where
+  arbitrary :: Gen Foo
   arbitrary = elements [minBound .. maxBound]
 
 hasAllFoo1, hasAllFoo2, hasAllFoo3 :: [Foo] -> Bool
 hasAllFoo1 = null . ([minBound .. maxBound] \\)
-hasAllFoo2 xs = xs /= [] && (sort $ [minBound .. maxBound] `intersect` xs) == [minBound .. maxBound]
+hasAllFoo2 xs = xs /= [] && sort ([minBound .. maxBound] `intersect` xs) == [minBound .. maxBound]
 hasAllFoo3 = (== [minBound .. maxBound]) . Set.toList . Set.fromList
 
 prop_hasAllFoo1 :: [Foo] -> Bool
@@ -43,6 +45,7 @@ prop_hasAllFoo3 :: [Foo] -> Bool
 prop_hasAllFoo3 xs =
   hasAllFoo1 xs == hasAllFoo3 xs
 
+main :: IO ()
 main = do
   (quickCheck . withMaxSuccess 1000) prop_hasAllFoo1
   (quickCheck . withMaxSuccess 1000) prop_hasAllFoo2

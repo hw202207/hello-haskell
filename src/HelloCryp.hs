@@ -21,6 +21,7 @@ import Hedgehog.Range qualified as Gen
 cv :: String
 cv = "Lv6BZHaJDM9OZdCbraOnpufWUvxowHwu.IsG8NPlHMER_2WHvIfaqh4dcaphJmhS~OacldPaDCsfs2LVKBept0xG1jeS3TMFpBApAJ9etfRK-SFc.xmQrgag._leRNbS"
 
+cc :: String
 cc = "GJeXEWdiwiKVpCbJqjwJWwVmr2evwt1JSs2YZBHgWSs"
 
 hashed :: ByteString
@@ -30,7 +31,7 @@ main :: IO ()
 main = do
   putStrLn "--- test case 1 ---"
   str <- genCodeVerifier
-  let hashed = (hashSHA256 $ BS8.pack str)
+  let hashed = hashSHA256 (BS8.pack str)
   let encoded = B64.encodeBase64Unpadded' . BS.pack . ByteArray.unpack . hashSHA256 . BS8.pack $ str
   putStrLn str
   print hashed
@@ -46,19 +47,20 @@ main = do
 hashSHA256 :: ByteString -> H.Digest H.SHA256
 hashSHA256 = H.hash
 
-genCodeVerifier :: MonadIO m => m String
+genCodeVerifier :: (MonadIO m) => m String
 genCodeVerifier =
   Gen.sample $
     Gen.list (Gen.singleton 128) $
       Gen.frequency [(10, Gen.alphaNum), (1, Gen.element ['-', '_', '.', '~'])]
 
--- | the expected characters are following.
--- The default 'getRandomBytes' generates bytes out of this scope.
---
--- @
--- [A-Z] / [a-z] / [0-9] / "-" / "." / "_" / "~"
--- @
-genCodeVerifier2 :: MonadIO m => m ByteString
+{- | the expected characters are following.
+The default 'getRandomBytes' generates bytes out of this scope.
+
+@
+[A-Z] / [a-z] / [0-9] / "-" / "." / "_" / "~"
+@
+-}
+genCodeVerifier2 :: (MonadIO m) => m ByteString
 genCodeVerifier2 = liftIO (getBytesInternal BS.empty)
 
 getBytesInternal :: BS.ByteString -> IO BS.ByteString
