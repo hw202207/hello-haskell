@@ -46,7 +46,6 @@ executable hello-haskell
                     , containers
                     , bytestring
                     , mtl
-                    , string-variants
                     , aeson
                     , time
                     , text
