@@ -10,6 +10,7 @@ import Data.Aeson
 import Data.StringVariants
 import GHC.Generics
 import Text.Pretty.Simple
+import qualified Data.List.NonEmpty  as NE
 
 {-
 instance KnownNat n => FromJSON (NullableNonEmptyText n) where
@@ -43,6 +44,17 @@ data Foo = Foo
 
 instance FromJSON Foo
 
+
+txtChunks :: NonEmptyText 140 -> [Maybe ( NonEmptyText 35 )]
+txtChunks =
+      NE.take 4
+        . (flip NE.appendList $ repeat Nothing)
+        . NE.map Just
+        . chunksOfNonEmptyText @35 @140
+
+bar :: Maybe (NonEmptyText 140)
+bar = mkNonEmptyTextWithTruncate "RETURN IMAD 20000312MMQFMP4S000011"
+
 main :: IO ()
 main = do
     let xs =
@@ -51,3 +63,4 @@ main = do
             , "{\"name\": \"foo\"}"
             ]
     mapM_ (pPrint . eitherDecode @Foo) xs
+    print (txtChunks <$> bar)
