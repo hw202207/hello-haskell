@@ -2,7 +2,7 @@ clean:
 	cabal clean
 
 build: clean
-	cabal build
+	cabal build -j
 
 build2: clean
-	cabal build --ghc-options="-fwrite-if-simplified-core"
+	cabal build -j --ghc-options="-fwrite-if-simplified-core"
