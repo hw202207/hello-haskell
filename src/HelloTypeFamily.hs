@@ -1,8 +1,14 @@
+{-# LANGUAGE TypeApplications #-}
+{-# LANGUAGE DataKinds #-}
 {-# LANGUAGE UndecidableInstances #-}
 {-# LANGUAGE PolyKinds #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE NoStarIsType #-}
 module HelloTypeFamily where
+
+import GHC.Types
+import Data.Proxy
+import GHC.Num.Natural
 
 newtype UnescapingChar = UnescapingChar {unescapingChar :: Char}
 
@@ -37,6 +43,27 @@ type family ToUnescapingTF (a :: k) :: k where
 -- ToUnescapingTF (Maybe Char) :: Type
 -- = Maybe UnescapingChar
 
+
+type family FooS (a :: Symbol) :: Type where
+  FooS "a" = Char
+  FooS "b" = Bool
+  FooS "c" = Int
+
+type family FooN (a :: Natural) :: Type where
+  FooN 1 = Char
+  FooN 2 = Bool
+  FooN 3 = Int
+
+data Foo ( a :: Type ) = MkFoo a Bool
+
+a :: Foo Int
+a = MkFoo 3 True
+
+b :: Foo (FooS "b")
+b = MkFoo False True
+
+c :: Foo (FooN 3)
+c = MkFoo 2 True
 
 main :: IO ()
 main = putStrLn "Hello, Haskell!"

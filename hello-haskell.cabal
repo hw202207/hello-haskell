@@ -58,6 +58,7 @@ executable hello-haskell
                     , memory
                     , hedgehog ^>= 1.2
                     , cryptonite ^>= 0.30
+                    , ghc-prim ^>= 0.9
                     , unliftio ^>= 0.2.24
 
     hs-source-dirs: src
