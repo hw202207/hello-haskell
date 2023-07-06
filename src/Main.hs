@@ -22,6 +22,7 @@ import HelloTime qualified
 import HelloTypeFamily qualified
 import HelloTempFile qualified
 import HelloFactors qualified
+import HelloCallStack qualified
 
 -- f :: Show a => Int -> a
 -- f _ = "test"
