@@ -1,7 +1,6 @@
 {-# LANGUAGE ImportQualifiedPost #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PolyKinds #-}
-{-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE UndecidableInstances #-}
 {-# LANGUAGE NoStarIsType #-}
@@ -9,9 +8,7 @@
 
 module Main where
 
-import Control.Exception
 import Data.Text qualified as T
-import GHC.Stack
 import HelloAeson qualified
 import HelloCallStack qualified
 import HelloCryp qualified
@@ -45,18 +42,7 @@ bar :: Bar -> Bar
 bar Bar{barName = barName2} = Bar{barName = barName2}
 
 main :: IO ()
-main = do
-  putStrLn "callstack test1"
-  catch
-    HelloCallStack.test1
-    (\(e :: SomeException) -> do
-        putStrLn "Got error"
-        print e
-        putStrLn "==="
-        GHC.Stack.currentCallStack >>= print
-    )
-  putStrLn "callstack test2"
-  HelloCallStack.test2
+main = HelloCallStack.main
 
 testSplit :: IO ()
 testSplit = do
