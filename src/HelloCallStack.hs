@@ -13,6 +13,18 @@ bar = foo . negate
 baz :: HasCallStack => Int -> String
 baz = bar . (* 2)
 
-main :: HasCallStack => IO ()
-main = do
-    print $ baz 5
+test2 :: HasCallStack => IO ()
+test2 = print $ baz 5
+
+
+a :: Int -> String
+a = error "oh no..."
+
+b :: Int -> String
+b = a . negate
+
+c :: Int -> String
+c = b . (* 2)
+
+test1 :: IO ()
+test1 = print (c 11)
