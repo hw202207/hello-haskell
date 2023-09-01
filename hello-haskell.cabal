@@ -32,6 +32,7 @@ executable hello-haskell
        HelloEither
        HelloEnum
        HelloMaybeT
+       HelloDataKindsAssoc
        HelloStringVariants
        HelloTime
        HelloScientific
