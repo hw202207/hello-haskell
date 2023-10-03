@@ -7,6 +7,7 @@ import Data.List
 import Data.Text qualified as T
 import Data.Text.ICU qualified as ICU
 -- import Data.Text.ICU.Collate qualified as ICU hiding (collate, sortKey)
+-- improt Text.Collate qualified as TC
 
 main :: IO ()
 main = do
@@ -26,6 +27,7 @@ main = do
     print (sort xs)
     print (sort ys)
     print (sortBy myCompare ys)
+    -- print (sortBy ( TC.collate "en_US" ) ys)
     print (sort zs)
 
 myCompare :: T.Text -> T.Text -> Ordering

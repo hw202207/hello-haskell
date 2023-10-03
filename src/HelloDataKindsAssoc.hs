@@ -28,8 +28,8 @@ f2 = Foo { a = 2, b = "bbb" }
 f3 :: Foo C
 f3 = Foo { a = 3, b = "ccc" }
 
-findFoo :: Bar -> Foo i
-findFoo = \case
-  A -> f1
-  B -> f2
-  C -> f3
+-- findFoo :: Bar -> Foo i
+-- findFoo = \case
+--   A -> f1
+--   B -> f2
+--   C -> f3

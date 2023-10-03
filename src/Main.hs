@@ -13,6 +13,7 @@ import Data.Text qualified as T
 import HelloCallStack qualified
 import Data.Time.Clock
 import Data.Time.Calendar
+import HelloVersion qualified
 -- import HelloAeson qualified
 -- import HelloCryp qualified
 -- import HelloDataKinds qualified
@@ -44,8 +45,9 @@ barz Bar{barName = barName1} = Baz barName1
 bar :: Bar -> Bar
 bar Bar{barName = barName2} = Bar{barName = barName2}
 
+
 main :: IO ()
-main = HelloCallStack.main
+main = HelloVersion.main
 
 testSplit :: IO ()
 testSplit = do
