@@ -1,4 +1,3 @@
-{-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE UndecidableInstances #-}
 {-# LANGUAGE PolyKinds #-}
@@ -7,7 +6,7 @@
 module HelloTypeFamily where
 
 import GHC.Types
-import Data.Proxy
+-- import Data.Proxy
 import GHC.Num.Natural
 
 newtype UnescapingChar = UnescapingChar {unescapingChar :: Char}
@@ -24,12 +23,16 @@ newtype UnescapingChar = UnescapingChar {unescapingChar :: Char}
 -- where @t@ has kind @Type -> Type@
 -- and @b@ has kind @Type@
 --
+
+{-
+FIXME: unable to compile at GHC2021/GHC-9.4.7
 type family ToUnescapingTF (a :: k) :: k where
   ToUnescapingTF Char = UnescapingChar
   -- cast to @:: k@ seems not required
   -- ToUnescapingTF (t b :: k) = (ToUnescapingTF t) (ToUnescapingTF b)
-  ToUnescapingTF (t b) = (ToUnescapingTF t) (ToUnescapingTF b)
+  ToUnescapingTF (t b ) = (ToUnescapingTF t) (ToUnescapingTF b)
   ToUnescapingTF a = a
+-}
 
 -- >>> :kind! ToUnescapingTF Int
 -- ToUnescapingTF Int :: Type

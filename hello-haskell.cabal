@@ -41,6 +41,8 @@ executable hello-haskell
        HelloFactors
        HelloCallStack
        HelloPartialMatching
+       HelloVersion
+       HelloDependentType
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
@@ -67,10 +69,11 @@ executable hello-haskell
                     -- , unicode-collation
 
     hs-source-dirs: src
-    default-language: Haskell2010
+    default-language: GHC2021
     ghc-options:
       -Wall
       -Wtabs
       -Wunused-packages
       -Wpartial-fields
       -Wwarnings-deprecations
+      -Wno-unused-imports

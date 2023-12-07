@@ -31,10 +31,10 @@ main :: IO ()
 main = do
   putStrLn "--- test case 1 ---"
   str <- genCodeVerifier
-  let hashed = hashSHA256 (BS8.pack str)
+  let hashedResult = hashSHA256 (BS8.pack str)
   let encoded = B64.encodeBase64Unpadded' . BS.pack . ByteArray.unpack . hashSHA256 . BS8.pack $ str
   putStrLn str
-  print hashed
+  print hashedResult
   print encoded
   putStrLn "--- test case 2 ---"
   str2 <- genCodeVerifier2

@@ -42,6 +42,7 @@ parseOptionalEmptyTextField obj key = obj .:? key >>=  parseEmptyText
                           (\t -> if (T.null . T.strip) t then pure Nothing else Just <$> parseJSON v)
                           v
 
+main :: IO ()
 main = do
   print (encode $ Baz {bname = "hw", orgId = "org-123"})
   print (eitherDecode "{\"name\":\"Joe\",\"age\":12}" :: Either String Foo)

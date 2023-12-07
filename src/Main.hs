@@ -11,8 +11,8 @@ module Main where
 
 import Data.Text qualified as T
 import HelloCallStack qualified
-import Data.Time.Clock
-import Data.Time.Calendar
+-- import Data.Time.Clock
+-- import Data.Time.Calendar
 import HelloVersion qualified
 -- import HelloAeson qualified
 -- import HelloCryp qualified

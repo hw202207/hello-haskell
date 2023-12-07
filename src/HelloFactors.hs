@@ -17,6 +17,7 @@ run = [(x, factorOf x) | x <- [300 .. 399], length (factorOf x) == 24]
 run2 :: [Integer]
 run2 = [ x | x <- [300..399], isDivideByAll x]
 
+isDivideByAll :: Integral a => a -> Bool
 isDivideByAll n = all (== 0) [ n `rem` x | x<- [1..12] ]
 
 main :: IO ()
