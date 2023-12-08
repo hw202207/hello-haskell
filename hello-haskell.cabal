@@ -27,6 +27,7 @@ executable hello-haskell
     -- Modules included in this executable, other than Main.
     other-modules:
        HelloAeson
+       HelloAesonTypescript
        HelloCryp
        HelloDataKinds
        HelloEither
@@ -43,6 +44,8 @@ executable hello-haskell
        HelloPartialMatching
        HelloVersion
        HelloDependentType
+       HelloTHGen
+       TH
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
@@ -52,6 +55,7 @@ executable hello-haskell
                     , bytestring
                     , mtl
                     , aeson
+                    , aeson-typescript
                     , time
                     , text
                     , transformers
@@ -66,6 +70,9 @@ executable hello-haskell
                     , ghc-prim ^>= 0.9
                     , unliftio ^>= 0.2.24
                     , text-icu
+                    , template-haskell
+                    , directory
+                    , filepath
                     -- , unicode-collation
 
     hs-source-dirs: src
