@@ -1,6 +1,6 @@
 {-# LANGUAGE TemplateHaskellQuotes #-}
 
-module TH where
+module THUtil where
 
 import Language.Haskell.TH
 import System.Directory (createDirectoryIfMissing, getCurrentDirectory)
@@ -9,8 +9,8 @@ import System.FilePath
 data EmailTemplate = EmailTemplate {name :: String, plainText :: String}
 data Foo = Foo
 
-compileTemplate :: EmailTemplate -> Q Exp
-compileTemplate _et = do
+compileTemplate :: Name -> EmailTemplate ->  Q Exp
+compileTemplate sth _et = do
     runIO $ do
         absolutePath <- getCurrentDirectory
 
@@ -24,7 +24,10 @@ compileTemplate _et = do
         createDirectoryIfMissing True rootDir
 
         -- Write file with exactly one newline, for compliance with precommit checks.
-        writeFile templateFilePath $ emailContent <> "\n"
+        let result =
+              nameBase sth ++ "\n"
+              ++ emailContent
+        writeFile templateFilePath $ result <> "\n"
 
     [|Foo|]
   where
