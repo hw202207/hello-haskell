@@ -67,12 +67,14 @@ executable hello-haskell
                     , memory
                     , hedgehog ^>= 1.2
                     , cryptonite ^>= 0.30
-                    , ghc-prim ^>= 0.9
+                    , ghc-prim ^>= 0.10
                     , unliftio ^>= 0.2.24
                     , text-icu
                     , template-haskell
                     , directory
                     , filepath
+                    , countable-inflections
+                    , text-manipulate
                     -- , unicode-collation
 
     hs-source-dirs: src

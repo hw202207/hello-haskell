@@ -2,11 +2,12 @@
 
 module HelloTHGen where
 
-import THUtil
+-- import THUtil
 
 data MyBar = MyBar { fname :: String, fage :: Int }
 
 main :: IO ()
-main = run $(compileTemplate
-             ''MyBar
-             EmailTemplate{name = "Foo", plainText = "Hello"})
+main = print 1
+-- main = run $(compileTemplate
+--              ''MyBar
+--              EmailTemplate{name = "Foo", plainText = "Hello"})

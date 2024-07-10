@@ -46,8 +46,14 @@ bar :: Bar -> Bar
 bar Bar{barName = barName2} = Bar{barName = barName2}
 
 
+f1 :: Int -> IO String
+f1 = pure . show
+
 main :: IO ()
-main = HelloVersion.main
+main = do
+  HelloVersion.main
+  traverse f1 (Just 4) >>= print
+  pure ()
 
 testSplit :: IO ()
 testSplit = do
@@ -56,5 +62,3 @@ testSplit = do
   print $ T.splitOn "-" "a-b"
   print $ T.splitOn "-" "a-b-"
   print $ T.splitOn "-" "a-b-c"
-
-
